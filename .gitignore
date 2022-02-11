@@ -2,3 +2,4 @@
 cmake-build-debug
 cocos2d
 .DS_Store
+build

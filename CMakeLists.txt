@@ -31,6 +31,8 @@ project(${APP_NAME})
 
 set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d)
 set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
+set(CMAKE_OSX_ARCHITECTURES x86_64)
+set(CMAKE_CXX_LINK_FLAGS "-L ${COCOS2DX_ROOT_PATH}/external/wallet/dylib -lwallet")
 
 include(CocosBuildSet)
 add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
@@ -171,6 +173,8 @@ target_link_libraries(${APP_NAME} cocos2d)
 target_include_directories(${APP_NAME}
         PRIVATE Classes
         PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
+        PRIVATE ${COCOS2DX_ROOT_PATH}/external/wallet/include/
+        PRIVATE ${COCOS2DX_ROOT_PATH}/external/test/include/
 )
 
 # mark app resources
