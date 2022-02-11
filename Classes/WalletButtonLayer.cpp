@@ -2,7 +2,7 @@
 #include "WalletButtonLayer.h"
 #include "ui/CocosGUI.h"
 #include "wallet.h"
-#include "test.h"
+//#include "test.h"
 #include <iostream>
 
 USING_NS_CC;
@@ -13,9 +13,9 @@ bool WalletButtonLayer::init() {
 
     const char* signer = init_signer(seed_phrase, passphrase);
     int balance = get_balance(signer);
-//    int balance = 5;
+    double bal = double (balance) / 1000000000;
 
-    print_hello();
+    log("Balance: %d", balance);
 
 	auto walletItem = MenuItemImage::create("images/back.png", "images/back.png", CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
     walletItem->setScale(0.5);
@@ -31,7 +31,7 @@ bool WalletButtonLayer::init() {
     seedLabel->setPosition(Vec2(70, 1180));
     
    
-    auto balanceSolLabel = Label::createWithTTF(std::to_string(balance), "fonts/MarkerFelt.ttf", 30);
+    auto balanceSolLabel = Label::createWithTTF("Balance: " + std::to_string(bal), "fonts/MarkerFelt.ttf", 30);
     balanceSolLabel->enableShadow();
     balanceSolLabel->setAnchorPoint(Point(0.0f, 1.0f));
     balanceSolLabel->setPosition(Vec2(70, 980));
@@ -58,8 +58,6 @@ bool WalletButtonLayer::init() {
     this->addChild(balanceSolLabel, 1);
     this->addChild(menu, 1);
     
-    balanceSolLabel->setString("Fuck");
-    
 	return true;
 }
 
@@ -70,7 +68,7 @@ void WalletButtonLayer::goToWelcomeCallback(Ref* pSender) {
 
 void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type)
 {
-    ui::TextField *seedField = dynamic_cast<ui::TextField *>(pSender);
+    auto *seedField = dynamic_cast<ui::TextField *>(pSender);
     Label * balance = dynamic_cast<Label *>(this->getChildByName("balance"));
     
     switch (type)
@@ -96,7 +94,7 @@ void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::Eve
             
         case cocos2d::ui::TextField::EventType::DELETE_BACKWARD:
         {
-            balance->setString(seedField->getString().c_str());
+            balance->setString(seedField->getString());
             break;
         }
         default:
