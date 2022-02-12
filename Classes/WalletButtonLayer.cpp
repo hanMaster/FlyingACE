@@ -344,9 +344,8 @@ void WalletButtonLayer::connectCallback(Ref *pSender) {
     log("Try to connect with seedPhrase: %s", this->seedPhrase.c_str());
     log("Try to connect with passphrase: %s", this->passphrase.c_str());
 
-//    const char *signer = init_signer(seed_phrase, this->passphrase.c_str());
-//    int balance = get_balance(signer);
-    int balance = 5;
+    const char *signer = init_signer(this->seedPhrase.c_str(), this->passphrase.c_str());
+    int balance = get_balance(signer);
     double bal = double(balance) / 1000000000;
 
     log("Balance: %d", balance);
@@ -367,7 +366,6 @@ void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::Eve
             log("Stop typing: %s", seedField->getString().c_str());
             UserDefault::getInstance()->setStringForKey(seedField->getName().c_str(), seedField->getString());
             this->initSeed();
-            log("seed1: %s", this->seed1.c_str());
             break;
         }
 
