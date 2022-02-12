@@ -12,6 +12,7 @@ public:
 	CREATE_FUNC(WalletButtonLayer);
 private:
 	void goToWelcomeCallback(Ref* pSender);
+	void connectCallback(Ref* pSender);
     void textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type);
 	virtual bool init() override;
 };
