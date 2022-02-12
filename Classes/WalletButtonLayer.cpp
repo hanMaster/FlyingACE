@@ -336,6 +336,17 @@ bool WalletButtonLayer::init() {
     menuSave->setPosition(260, 445);
 
     /**
+     * Status Label
+     */
+
+    auto statusLabel = Label::createWithTTF("", "fonts/MarkerFelt.ttf", 30);
+    statusLabel->enableShadow();
+    statusLabel->setAnchorPoint(Point(0.0f, 1.0f));
+    statusLabel->setPosition(Vec2(30, 200));
+    statusLabel->setName("status");
+    statusLabel->setColor(Color3B::RED);
+
+    /**
      * Back button
      */
     auto walletItem = MenuItemImage::create(
@@ -385,6 +396,7 @@ bool WalletButtonLayer::init() {
     this->addChild(menuConnect, 1);
     this->addChild(menuLoad, 1);
     this->addChild(menuSave, 1);
+    this->addChild(statusLabel, 1);
     this->addChild(menuBack, 1);
 
     return true;
@@ -407,6 +419,7 @@ void WalletButtonLayer::connectCallback(Ref *pSender) {
 
     balanceLabel->setString(cocos2d::StringUtils::format("SOL Balance: %f", bal));
     addressLabel->setString(this->address);
+    this->setStatus("Wallet connected", false);
 }
 
 void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type) {
@@ -472,12 +485,19 @@ void WalletButtonLayer::saveCallback(Ref *pSender) {
     if (strlen(this->signer) > 0) {
         save_score(this->signer, this->score);
     } else {
-        log("Need to connect to the wallet");
+        this->setStatus("Need to connect to the wallet", true);
     }
 }
 
 void WalletButtonLayer::loadCallback(Ref *pSender) {
     auto *scoreLabel = dynamic_cast<Label *>(this->getChildByName("score"));
     scoreLabel->setString(cocos2d::StringUtils::format("Best score: %d", get_score()));
-    log("Best score loaded from blockchain");
+    this->setStatus("Best score loaded from blockchain", false);
+}
+
+void WalletButtonLayer::setStatus(const std::string& message, bool isError) {
+    auto *statusLabel = dynamic_cast<Label *>(this->getChildByName("status"));
+    auto color = isError ? Color3B::RED : Color3B::GREEN;
+    statusLabel->setColor(color);
+    statusLabel->setString(message);
 }

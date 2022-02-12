@@ -38,6 +38,7 @@ private:
 	void loadCallback(Ref* pSender);
     void textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type);
     void buildSeedPhrase();
+    void setStatus(const std::string&, bool);
 };
 
 #endif /* WALLETBUTTONLAYER_H_ */
