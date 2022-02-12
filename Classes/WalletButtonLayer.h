@@ -26,6 +26,7 @@ private:
 
     std::string seedPhrase;
     std::string passphrase;
+    std::string address;
 
 	virtual bool init() override;
     void initSeed();

@@ -250,12 +250,23 @@ bool WalletButtonLayer::init() {
     passPhraseField->setMaxLength(50);
     passPhraseField->setMaxLengthEnabled(true);
     passPhraseField->setTouchAreaEnabled(true);
-    passPhraseField->setTouchSize(Size(650, 56));
+    passPhraseField->setTouchSize(Size(485, 56));
     passPhraseField->addEventListener(CC_CALLBACK_2(WalletButtonLayer::textFieldEvent, this));
     passPhraseField->setName("passphrase");
     passPhraseField->setPasswordEnabled(true);
     passPhraseField->setPasswordStyleText("*");
     passPhraseField->setString(this->passphrase);
+
+    /**
+     * address Label
+     */
+
+    auto addressLabel = Label::createWithTTF(this->address, "fonts/MarkerFelt.ttf", 30);
+    addressLabel->enableShadow();
+    addressLabel->setAnchorPoint(Point(0.0f, 1.0f));
+    addressLabel->setPosition(Vec2(30, 900));
+    addressLabel->setName("address");
+    addressLabel->setColor(Color3B::ORANGE);
 
     /**
      * balance SOL Label
@@ -279,7 +290,7 @@ bool WalletButtonLayer::init() {
     connectItem->setScale(0.5);
     auto menuConnect = Menu::create(connectItem, NULL);
     menuConnect->setAnchorPoint(Point(0.0f, 1.0f));
-    menuConnect->setPosition(Director::getInstance()->getWinSize().width - 100, 880);
+    menuConnect->setPosition(Director::getInstance()->getWinSize().width - 100, 945);
 
     /**
      * Back button
@@ -325,6 +336,7 @@ bool WalletButtonLayer::init() {
     this->addChild(wideImage, 1);
     this->addChild(passPhraseField, 2);
 
+    this->addChild(addressLabel, 1);
     this->addChild(balanceSolLabel, 1);
     this->addChild(menuConnect, 1);
     this->addChild(menuBack, 1);
@@ -339,6 +351,7 @@ void WalletButtonLayer::goToWelcomeCallback(Ref *pSender) {
 
 void WalletButtonLayer::connectCallback(Ref *pSender) {
     auto *balanceLabel = dynamic_cast<Label *>(this->getChildByName("balance"));
+    auto *addressLabel = dynamic_cast<Label *>(this->getChildByName("address"));
     this->buildSeedPhrase();
 
     log("Try to connect with seedPhrase: %s", this->seedPhrase.c_str());
@@ -346,10 +359,12 @@ void WalletButtonLayer::connectCallback(Ref *pSender) {
 
     const char *signer = init_signer(this->seedPhrase.c_str(), this->passphrase.c_str());
     int balance = get_balance(signer);
+    this->address = get_address(signer);
     double bal = double(balance) / 1000000000;
 
     log("Balance: %d", balance);
     balanceLabel->setString(cocos2d::StringUtils::format("SOL Balance: %f", bal));
+    addressLabel->setString(this->address);
 }
 
 void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type) {
