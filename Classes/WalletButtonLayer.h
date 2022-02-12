@@ -26,12 +26,16 @@ private:
 
     std::string seedPhrase;
     std::string passphrase;
+    const char *signer;
     std::string address;
+    int score;
 
 	virtual bool init() override;
     void initSeed();
 	void goToWelcomeCallback(Ref* pSender);
 	void connectCallback(Ref* pSender);
+	void saveCallback(Ref* pSender);
+	void loadCallback(Ref* pSender);
     void textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type);
     void buildSeedPhrase();
 };

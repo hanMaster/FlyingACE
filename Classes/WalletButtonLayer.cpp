@@ -7,6 +7,8 @@ USING_NS_CC;
 
 bool WalletButtonLayer::init() {
     this->initSeed();
+    this->signer = "";
+
     /**
      * Seed label
      */
@@ -269,17 +271,6 @@ bool WalletButtonLayer::init() {
     addressLabel->setColor(Color3B::ORANGE);
 
     /**
-     * balance SOL Label
-     */
-
-    auto balanceSolLabel = Label::createWithTTF("SOL Balance: NOT CONNECTED", "fonts/MarkerFelt.ttf", 30);
-    balanceSolLabel->enableShadow();
-    balanceSolLabel->setAnchorPoint(Point(0.0f, 1.0f));
-    balanceSolLabel->setPosition(Vec2(70, 600));
-    balanceSolLabel->setName("balance");
-    balanceSolLabel->setColor(Color3B::ORANGE);
-
-    /**
      * Connect button
      */
     auto connectItem = MenuItemImage::create(
@@ -291,6 +282,58 @@ bool WalletButtonLayer::init() {
     auto menuConnect = Menu::create(connectItem, NULL);
     menuConnect->setAnchorPoint(Point(0.0f, 1.0f));
     menuConnect->setPosition(Director::getInstance()->getWinSize().width - 100, 945);
+
+    /**
+     * balance SOL Label
+     */
+
+    auto balanceSolLabel = Label::createWithTTF("SOL Balance: NOT CONNECTED", "fonts/MarkerFelt.ttf", 30);
+    balanceSolLabel->enableShadow();
+    balanceSolLabel->setAnchorPoint(Point(0.0f, 1.0f));
+    balanceSolLabel->setPosition(Vec2(30, 600));
+    balanceSolLabel->setName("balance");
+    balanceSolLabel->setColor(Color3B::ORANGE);
+
+
+    /**
+     * score Label
+     */
+
+    this->score = UserDefault::getInstance()->getIntegerForKey("score", 0);
+    auto scoreLabelValue = cocos2d::StringUtils::format("Best score: %d", this->score);
+
+    auto scoreSolLabel = Label::createWithTTF(scoreLabelValue, "fonts/MarkerFelt.ttf", 30);
+    scoreSolLabel->enableShadow();
+    scoreSolLabel->setAnchorPoint(Point(0.0f, 1.0f));
+    scoreSolLabel->setPosition(Vec2(30, 530));
+    scoreSolLabel->setName("score");
+    scoreSolLabel->setColor(Color3B::ORANGE);
+
+    /**
+     * Load score button
+     */
+    auto loadScoreItem = MenuItemImage::create(
+            "images/load_score.png",
+            "images/load_score.png",
+            CC_CALLBACK_1(WalletButtonLayer::loadCallback, this));
+
+    loadScoreItem->setScale(0.5);
+    auto menuLoad = Menu::create(loadScoreItem, NULL);
+    menuLoad->setAnchorPoint(Point(0.0f, 1.0f));
+    menuLoad->setPosition(100, 445);
+
+    /**
+     * Save score button
+     */
+    auto saveScoreItem = MenuItemImage::create(
+            "images/save_score.png",
+            "images/save_score.png",
+            CC_CALLBACK_1(WalletButtonLayer::saveCallback, this));
+
+    saveScoreItem->setScale(0.5);
+    auto menuSave = Menu::create(saveScoreItem, NULL);
+    menuSave->setAnchorPoint(Point(0.0f, 1.0f));
+    menuSave->setPosition(260, 445);
 
     /**
      * Back button
@@ -338,7 +381,10 @@ bool WalletButtonLayer::init() {
 
     this->addChild(addressLabel, 1);
     this->addChild(balanceSolLabel, 1);
+    this->addChild(scoreSolLabel, 1);
     this->addChild(menuConnect, 1);
+    this->addChild(menuLoad, 1);
+    this->addChild(menuSave, 1);
     this->addChild(menuBack, 1);
 
     return true;
@@ -354,15 +400,11 @@ void WalletButtonLayer::connectCallback(Ref *pSender) {
     auto *addressLabel = dynamic_cast<Label *>(this->getChildByName("address"));
     this->buildSeedPhrase();
 
-    log("Try to connect with seedPhrase: %s", this->seedPhrase.c_str());
-    log("Try to connect with passphrase: %s", this->passphrase.c_str());
-
-    const char *signer = init_signer(this->seedPhrase.c_str(), this->passphrase.c_str());
+    this->signer = init_signer(this->seedPhrase.c_str(), this->passphrase.c_str());
     int balance = get_balance(signer);
     this->address = get_address(signer);
     double bal = double(balance) / 1000000000;
 
-    log("Balance: %d", balance);
     balanceLabel->setString(cocos2d::StringUtils::format("SOL Balance: %f", bal));
     addressLabel->setString(this->address);
 }
@@ -376,22 +418,20 @@ void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::Eve
             log("Start typing");
             break;
         }
+
         case cocos2d::ui::TextField::EventType::DETACH_WITH_IME: {
             seedField->setColor(Color3B::GRAY);
-            log("Stop typing: %s", seedField->getString().c_str());
+            log("Stop typing");
             UserDefault::getInstance()->setStringForKey(seedField->getName().c_str(), seedField->getString());
             this->initSeed();
             break;
         }
 
-        case cocos2d::ui::TextField::EventType::INSERT_TEXT: {
-            log("Inserted: %s", seedField->getString().c_str());
-            break;
-        }
-
+        case cocos2d::ui::TextField::EventType::INSERT_TEXT:
         case cocos2d::ui::TextField::EventType::DELETE_BACKWARD: {
             break;
         }
+
         default:
             break;
     }
@@ -426,4 +466,18 @@ void WalletButtonLayer::buildSeedPhrase(){
             this->seed10 + " " +
             this->seed11 + " " +
             this->seed12;
+}
+
+void WalletButtonLayer::saveCallback(Ref *pSender) {
+    if (strlen(this->signer) > 0) {
+        save_score(this->signer, this->score);
+    } else {
+        log("Need to connect to the wallet");
+    }
+}
+
+void WalletButtonLayer::loadCallback(Ref *pSender) {
+    auto *scoreLabel = dynamic_cast<Label *>(this->getChildByName("score"));
+    scoreLabel->setString(cocos2d::StringUtils::format("Best score: %d", get_score()));
+    log("Best score loaded from blockchain");
 }

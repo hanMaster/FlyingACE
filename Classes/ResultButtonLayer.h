@@ -15,7 +15,9 @@
 class ResultButtonLayer : public cocos2d::Layer{
 public:
 	CREATE_FUNC(ResultButtonLayer);
+    void setScore(int score);
 private:
+    int score;
 	void restartGameButtonCallback(Ref* pSender);
 	void backToMenuButtonCallback(Ref* pSender);
 	virtual bool init() override;

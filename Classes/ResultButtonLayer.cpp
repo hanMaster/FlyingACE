@@ -33,6 +33,14 @@ void ResultButtonLayer::restartGameButtonCallback(Ref* pSender){
 }
 
 void ResultButtonLayer::backToMenuButtonCallback(Ref* pSender){
+    int stored_score = UserDefault::getInstance()->getIntegerForKey("score", 0);
+    if (this->score > stored_score) {
+        UserDefault::getInstance()->setIntegerForKey("score", this->score);
+    }
 	Scene* welcomeScene = TransitionFade::create(2.0f, WelcomeScene::create());
 	Director::getInstance()->replaceScene(welcomeScene);
+}
+
+void ResultButtonLayer::setScore(int new_score) {
+    this->score = new_score;
 }

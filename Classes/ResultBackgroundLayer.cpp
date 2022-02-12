@@ -21,12 +21,12 @@ bool ResultBackgroundLayer::init() {
 	return true;
 }
 
-void ResultBackgroundLayer::setIsWin(bool isWin) {
-	this->isWin = isWin;
+void ResultBackgroundLayer::setIsWin(bool new_isWin) {
+	this->isWin = new_isWin;
 }
 
-void ResultBackgroundLayer::setScore(int score) {
-	this->score = score;
+void ResultBackgroundLayer::setScore(int new_score) {
+	this->score = new_score;
 }
 
 void ResultBackgroundLayer::displayInfomation() {

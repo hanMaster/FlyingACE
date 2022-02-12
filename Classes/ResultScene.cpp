@@ -16,6 +16,7 @@ Scene* ResultScene::create(bool isWin, int score) {
 	resultBackgroundLayer->displayInfomation();
 
 	ResultButtonLayer* resultButtonLayer = ResultButtonLayer::create();
+    resultButtonLayer->setScore(score);
 	resultScene->addChild(resultButtonLayer);
 
 	return resultScene;
