@@ -72,7 +72,7 @@ void ControlLayer::updateScore() {
 	std::strstream ss;
 	ss << this->score;
 	ss >> strScore;
-	scoreLabel->setString(strScore.c_str());
+	scoreLabel->setString(strScore);
 	if(this->score % 1000 == 0){
 		static_cast<GameScene*>(this->getParent())->getUFOLayer()->addGiftSprite();
 	}
