@@ -38,9 +38,12 @@ private:
 	void loadCallback(Ref* pSender);
 	void resetCallback(Ref* pSender);
 	void setLocalCallback(Ref* pSender);
+	void buyTokenCallback(Ref* pSender);
+	void sellTokenCallback(Ref* pSender);
     void textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type);
     void buildSeedPhrase();
     void setStatus(const std::string&, bool);
+    double parseAmount();
 };
 
 #endif /* WALLETBUTTONLAYER_H_ */

@@ -285,7 +285,7 @@ bool WalletButtonLayer::init() {
      * Token amount input
      */
 
-    auto inputTokenAmount = MenuItemImage::create("images/small-input.png", "images/small-input.png");
+    auto inputTokenAmount = MenuItemImage::create("images/amount-input.png", "images/small-input.png");
     inputTokenAmount->setAnchorPoint(Point(0.0f, 0.5f));
     inputTokenAmount->setPosition(Vec2(30, 780));
 
@@ -293,12 +293,38 @@ bool WalletButtonLayer::init() {
     tokenAmountField->setAnchorPoint(Point(0.0f, 0.5f));
     tokenAmountField->setPosition(Vec2(40, 780));
     tokenAmountField->setColor(Color3B::BLUE);
-    tokenAmountField->setMaxLength(8);
+    tokenAmountField->setMaxLength(18);
     tokenAmountField->setMaxLengthEnabled(true);
     tokenAmountField->setTouchAreaEnabled(true);
-    tokenAmountField->setTouchSize(Size(220, 56));
+    tokenAmountField->setTouchSize(Size(280, 56));
     tokenAmountField->addEventListener(CC_CALLBACK_2(WalletButtonLayer::textFieldEvent, this));
     tokenAmountField->setName("tokenAmount");
+
+    /**
+     * Buy token button
+     */
+    auto buyTokenItem = MenuItemImage::create(
+            "images/buy_btn.png",
+            "images/buy_btn.png",
+            CC_CALLBACK_1(WalletButtonLayer::buyTokenCallback, this));
+
+    buyTokenItem->setScale(0.5);
+    auto menuBuy = Menu::create(buyTokenItem, NULL);
+    menuBuy->setAnchorPoint(Point(0.0f, 1.0f));
+    menuBuy->setPosition(420, 780);
+
+    /**
+     * Sell token button
+     */
+    auto sellTokenItem = MenuItemImage::create(
+            "images/sell_btn.png",
+            "images/sell_btn.png",
+            CC_CALLBACK_1(WalletButtonLayer::sellTokenCallback, this));
+
+    sellTokenItem->setScale(0.5);
+    auto menuSell = Menu::create(sellTokenItem, NULL);
+    menuSell->setAnchorPoint(Point(0.0f, 1.0f));
+    menuSell->setPosition(580, 780);
 
     /**
      * balance SOL Label
@@ -436,6 +462,8 @@ bool WalletButtonLayer::init() {
     this->addChild(balanceTokenLabel, 1);
     this->addChild(inputTokenAmount, 1);
     this->addChild(tokenAmountField, 2);
+    this->addChild(menuBuy, 1);
+    this->addChild(menuSell, 1);
 
     this->addChild(balanceSolLabel, 1);
     this->addChild(scoreSolLabel, 1);
@@ -461,7 +489,7 @@ void WalletButtonLayer::connectCallback(Ref *pSender) {
     this->buildSeedPhrase();
 
     this->signer = init_signer(this->seedPhrase.c_str(), this->passphrase.c_str());
-    int balance = get_balance(signer);
+    long int balance = get_balance(signer);
     this->address = get_address(signer);
     double bal = double(balance) / 1000000000;
 
@@ -471,26 +499,26 @@ void WalletButtonLayer::connectCallback(Ref *pSender) {
 }
 
 void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type) {
-    auto *seedField = dynamic_cast<ui::TextField *>(pSender);
+    auto *textField = dynamic_cast<ui::TextField *>(pSender);
 
     switch (type) {
         case cocos2d::ui::TextField::EventType::ATTACH_WITH_IME: {
-            seedField->setColor(Color3B::BLACK);
+            textField->setColor(Color3B::BLACK);
             log("Start typing");
             break;
         }
 
         case cocos2d::ui::TextField::EventType::DETACH_WITH_IME: {
-            seedField->setColor(Color3B::GRAY);
+            textField->setColor(Color3B::GRAY);
             log("Stop typing");
-            UserDefault::getInstance()->setStringForKey(seedField->getName().c_str(), seedField->getString());
+            UserDefault::getInstance()->setStringForKey(textField->getName().c_str(), textField->getString());
             this->initSeed();
             break;
         }
 
         case cocos2d::ui::TextField::EventType::INSERT_TEXT: {
-            if (seedField->getName() == "tokenAmount") {
-                log("Amount entered: %s", seedField->getString().c_str());
+            if (textField->getName() == "tokenAmount") {
+                log("Amount entered: %s", textField->getString().c_str());
             }
         }
 
@@ -519,19 +547,19 @@ void WalletButtonLayer::initSeed() {
     this->passphrase = UserDefault::getInstance()->getStringForKey("passphrase");
 }
 
-void WalletButtonLayer::buildSeedPhrase(){
+void WalletButtonLayer::buildSeedPhrase() {
     this->seedPhrase = this->seed1 + " " +
-            this->seed2 + " " +
-            this->seed3 + " " +
-            this->seed4 + " " +
-            this->seed5 + " " +
-            this->seed6 + " " +
-            this->seed7 + " " +
-            this->seed8 + " " +
-            this->seed9 + " " +
-            this->seed10 + " " +
-            this->seed11 + " " +
-            this->seed12;
+                       this->seed2 + " " +
+                       this->seed3 + " " +
+                       this->seed4 + " " +
+                       this->seed5 + " " +
+                       this->seed6 + " " +
+                       this->seed7 + " " +
+                       this->seed8 + " " +
+                       this->seed9 + " " +
+                       this->seed10 + " " +
+                       this->seed11 + " " +
+                       this->seed12;
 }
 
 void WalletButtonLayer::loadCallback(Ref *pSender) {
@@ -563,9 +591,31 @@ void WalletButtonLayer::setLocalCallback(Ref *pSender) {
     this->setStatus("Best score has been set as local score", false);
 }
 
-void WalletButtonLayer::setStatus(const std::string& message, bool isError) {
+void WalletButtonLayer::buyTokenCallback(Ref *pSender) {
+    double amount = this->parseAmount();
+    auto message = cocos2d::StringUtils::format("Going to buy tokens with amount: %f", amount);
+    this->setStatus(message, false);
+}
+
+void WalletButtonLayer::sellTokenCallback(Ref *pSender) {
+    double amount = this->parseAmount();
+    auto message = cocos2d::StringUtils::format("Going to sell tokens with amount: %f", amount);
+    this->setStatus(message, false);
+}
+
+void WalletButtonLayer::setStatus(const std::string &message, bool isError) {
     auto *statusLabel = dynamic_cast<Label *>(this->getChildByName("status"));
     auto color = isError ? Color3B::RED : Color3B::GREEN;
     statusLabel->setColor(color);
     statusLabel->setString(message);
+}
+
+double WalletButtonLayer::parseAmount() {
+    auto *textField = dynamic_cast<ui::TextField *>(this->getChildByName("tokenAmount"));
+    try{
+        return std::stod(textField->getString());
+    } catch (...) {
+        this->setStatus("Please enter correct amount of tokens", true);
+    }
+    return 0;
 }
