@@ -36,6 +36,8 @@ private:
 	void connectCallback(Ref* pSender);
 	void saveCallback(Ref* pSender);
 	void loadCallback(Ref* pSender);
+	void resetCallback(Ref* pSender);
+	void setLocalCallback(Ref* pSender);
     void textFieldEvent(Ref *pSender, cocos2d::ui::TextField::EventType type);
     void buildSeedPhrase();
     void setStatus(const std::string&, bool);

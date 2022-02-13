@@ -22,8 +22,7 @@ bool WalletButtonLayer::init() {
      * Seed inputs
      */
 
-    auto inputImage1 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage1 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage1->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage1->setPosition(Vec2(30, 1185));
 
@@ -39,8 +38,7 @@ bool WalletButtonLayer::init() {
     seedField1->setName("seed1");
     seedField1->setString(this->seed1);
 
-    auto inputImage2 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage2 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage2->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage2->setPosition(Vec2(195, 1185));
 
@@ -56,8 +54,7 @@ bool WalletButtonLayer::init() {
     seedField2->setName("seed2");
     seedField2->setString(this->seed2);
 
-    auto inputImage3 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage3 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage3->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage3->setPosition(Vec2(360, 1185));
 
@@ -73,8 +70,7 @@ bool WalletButtonLayer::init() {
     seedField3->setName("seed3");
     seedField3->setString(this->seed3);
 
-    auto inputImage4 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage4 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage4->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage4->setPosition(Vec2(525, 1185));
 
@@ -90,8 +86,7 @@ bool WalletButtonLayer::init() {
     seedField4->setName("seed4");
     seedField4->setString(this->seed4);
 
-    auto inputImage5 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage5 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage5->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage5->setPosition(Vec2(30, 1125));
 
@@ -107,8 +102,7 @@ bool WalletButtonLayer::init() {
     seedField5->setName("seed5");
     seedField5->setString(this->seed5);
 
-    auto inputImage6 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage6 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage6->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage6->setPosition(Vec2(195, 1125));
 
@@ -124,8 +118,7 @@ bool WalletButtonLayer::init() {
     seedField6->setName("seed6");
     seedField6->setString(this->seed6);
 
-    auto inputImage7 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage7 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage7->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage7->setPosition(Vec2(360, 1125));
 
@@ -141,8 +134,7 @@ bool WalletButtonLayer::init() {
     seedField7->setName("seed7");
     seedField7->setString(this->seed7);
 
-    auto inputImage8 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage8 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage8->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage8->setPosition(Vec2(525, 1125));
 
@@ -158,8 +150,7 @@ bool WalletButtonLayer::init() {
     seedField8->setName("seed8");
     seedField8->setString(this->seed8);
 
-    auto inputImage9 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                             CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage9 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage9->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage9->setPosition(Vec2(30, 1065));
 
@@ -175,8 +166,7 @@ bool WalletButtonLayer::init() {
     seedField9->setName("seed9");
     seedField9->setString(this->seed9);
 
-    auto inputImage10 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                              CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage10 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage10->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage10->setPosition(Vec2(195, 1065));
 
@@ -192,8 +182,7 @@ bool WalletButtonLayer::init() {
     seedField10->setName("seed10");
     seedField10->setString(this->seed10);
 
-    auto inputImage11 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                              CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage11 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage11->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage11->setPosition(Vec2(360, 1065));
 
@@ -209,8 +198,7 @@ bool WalletButtonLayer::init() {
     seedField11->setName("seed11");
     seedField11->setString(this->seed11);
 
-    auto inputImage12 = MenuItemImage::create("images/small-input.png", "images/small-input.png",
-                                              CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto inputImage12 = MenuItemImage::create("images/small-input.png", "images/small-input.png");
     inputImage12->setAnchorPoint(Point(0.0f, 0.5f));
     inputImage12->setPosition(Vec2(525, 1065));
 
@@ -240,8 +228,7 @@ bool WalletButtonLayer::init() {
      * Passphrase input
      */
 
-    auto wideImage = MenuItemImage::create("images/wide-input.png", "images/wide-input.png",
-                                           CC_CALLBACK_1(WalletButtonLayer::goToWelcomeCallback, this));
+    auto wideImage = MenuItemImage::create("images/wide-input.png", "images/wide-input.png");
     wideImage->setAnchorPoint(Point(0.0f, 0.5f));
     wideImage->setPosition(Vec2(30, 945));
 
@@ -284,10 +271,40 @@ bool WalletButtonLayer::init() {
     menuConnect->setPosition(Director::getInstance()->getWinSize().width - 100, 945);
 
     /**
+     * Game token balance Label
+     */
+
+    auto balanceTokenLabel = Label::createWithTTF("Game token balance: NOT CONNECTED", "fonts/MarkerFelt.ttf", 30);
+    balanceTokenLabel->enableShadow();
+    balanceTokenLabel->setAnchorPoint(Point(0.0f, 1.0f));
+    balanceTokenLabel->setPosition(Vec2(30, 855));
+    balanceTokenLabel->setName("tokenBalance");
+    balanceTokenLabel->setColor(Color3B::ORANGE);
+
+    /**
+     * Token amount input
+     */
+
+    auto inputTokenAmount = MenuItemImage::create("images/small-input.png", "images/small-input.png");
+    inputTokenAmount->setAnchorPoint(Point(0.0f, 0.5f));
+    inputTokenAmount->setPosition(Vec2(30, 780));
+
+    ui::TextField *tokenAmountField = ui::TextField::create("Amount", "fonts/MarkerFelt.ttf", 30);
+    tokenAmountField->setAnchorPoint(Point(0.0f, 0.5f));
+    tokenAmountField->setPosition(Vec2(40, 780));
+    tokenAmountField->setColor(Color3B::BLUE);
+    tokenAmountField->setMaxLength(8);
+    tokenAmountField->setMaxLengthEnabled(true);
+    tokenAmountField->setTouchAreaEnabled(true);
+    tokenAmountField->setTouchSize(Size(220, 56));
+    tokenAmountField->addEventListener(CC_CALLBACK_2(WalletButtonLayer::textFieldEvent, this));
+    tokenAmountField->setName("tokenAmount");
+
+    /**
      * balance SOL Label
      */
 
-    auto balanceSolLabel = Label::createWithTTF("SOL Balance: NOT CONNECTED", "fonts/MarkerFelt.ttf", 30);
+    auto balanceSolLabel = Label::createWithTTF("SOL balance: NOT CONNECTED", "fonts/MarkerFelt.ttf", 30);
     balanceSolLabel->enableShadow();
     balanceSolLabel->setAnchorPoint(Point(0.0f, 1.0f));
     balanceSolLabel->setPosition(Vec2(30, 600));
@@ -336,9 +353,34 @@ bool WalletButtonLayer::init() {
     menuSave->setPosition(260, 445);
 
     /**
+     * Reset local score button
+     */
+    auto resetScoreItem = MenuItemImage::create(
+            "images/reset_score.png",
+            "images/reset_score.png",
+            CC_CALLBACK_1(WalletButtonLayer::resetCallback, this));
+
+    resetScoreItem->setScale(0.5);
+    auto menuReset = Menu::create(resetScoreItem, NULL);
+    menuReset->setAnchorPoint(Point(0.0f, 1.0f));
+    menuReset->setPosition(420, 445);
+
+    /**
+     * Set local score button
+     */
+    auto setLocalScoreItem = MenuItemImage::create(
+            "images/set_score.png",
+            "images/set_score.png",
+            CC_CALLBACK_1(WalletButtonLayer::setLocalCallback, this));
+
+    setLocalScoreItem->setScale(0.5);
+    auto menuSetLocal = Menu::create(setLocalScoreItem, NULL);
+    menuSetLocal->setAnchorPoint(Point(0.0f, 1.0f));
+    menuSetLocal->setPosition(580, 445);
+
+    /**
      * Status Label
      */
-
     auto statusLabel = Label::createWithTTF("", "fonts/MarkerFelt.ttf", 30);
     statusLabel->enableShadow();
     statusLabel->setAnchorPoint(Point(0.0f, 1.0f));
@@ -391,11 +433,17 @@ bool WalletButtonLayer::init() {
     this->addChild(passPhraseField, 2);
 
     this->addChild(addressLabel, 1);
+    this->addChild(balanceTokenLabel, 1);
+    this->addChild(inputTokenAmount, 1);
+    this->addChild(tokenAmountField, 2);
+
     this->addChild(balanceSolLabel, 1);
     this->addChild(scoreSolLabel, 1);
     this->addChild(menuConnect, 1);
     this->addChild(menuLoad, 1);
     this->addChild(menuSave, 1);
+    this->addChild(menuReset, 1);
+    this->addChild(menuSetLocal, 1);
     this->addChild(statusLabel, 1);
     this->addChild(menuBack, 1);
 
@@ -440,7 +488,12 @@ void WalletButtonLayer::textFieldEvent(Ref *pSender, cocos2d::ui::TextField::Eve
             break;
         }
 
-        case cocos2d::ui::TextField::EventType::INSERT_TEXT:
+        case cocos2d::ui::TextField::EventType::INSERT_TEXT: {
+            if (seedField->getName() == "tokenAmount") {
+                log("Amount entered: %s", seedField->getString().c_str());
+            }
+        }
+
         case cocos2d::ui::TextField::EventType::DELETE_BACKWARD: {
             break;
         }
@@ -481,18 +534,33 @@ void WalletButtonLayer::buildSeedPhrase(){
             this->seed12;
 }
 
+void WalletButtonLayer::loadCallback(Ref *pSender) {
+    auto *scoreLabel = dynamic_cast<Label *>(this->getChildByName("score"));
+    this->score = get_score();
+    scoreLabel->setString(cocos2d::StringUtils::format("Best score: %d", this->score));
+    this->setStatus("Best score loaded from blockchain", false);
+}
+
 void WalletButtonLayer::saveCallback(Ref *pSender) {
     if (strlen(this->signer) > 0) {
         save_score(this->signer, this->score);
+        this->setStatus("Best score has been saved in blockchain", false);
     } else {
         this->setStatus("Need to connect to the wallet", true);
     }
 }
 
-void WalletButtonLayer::loadCallback(Ref *pSender) {
+void WalletButtonLayer::resetCallback(Ref *pSender) {
     auto *scoreLabel = dynamic_cast<Label *>(this->getChildByName("score"));
-    scoreLabel->setString(cocos2d::StringUtils::format("Best score: %d", get_score()));
-    this->setStatus("Best score loaded from blockchain", false);
+    scoreLabel->setString("Best score: 0");
+    this->score = 0;
+    UserDefault::getInstance()->setIntegerForKey("score", this->score);
+    this->setStatus("Local best score has been reset to 0", false);
+}
+
+void WalletButtonLayer::setLocalCallback(Ref *pSender) {
+    UserDefault::getInstance()->setIntegerForKey("score", this->score);
+    this->setStatus("Best score has been set as local score", false);
 }
 
 void WalletButtonLayer::setStatus(const std::string& message, bool isError) {

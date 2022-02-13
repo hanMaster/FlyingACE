@@ -1,0 +1,4 @@
+game owher address: B8Hr27Cj1WGP8YDd766zdP3BBRwx44X4KFgaASHs4p4X
+game owner token account: GvEPbzB9fm6PoXXbAqec7zArMHgLYm1abui67txQLUrC
+
+mint address: 9rod48MLNxMqLpviTfoeN2nAaaQDqeweux5Qo9VrNxS8
