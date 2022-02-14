@@ -1,0 +1,15 @@
+[package]
+name = "wallet"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "wallet"
+crate-type = ["dylib"]
+
+[dependencies]
+solana-client = "1.9.6"
+libc = "0.2.117"
+solana-sdk = "1.9.6"
+spl-token = {version = "3.2.0", features = ["no-entrypoint"]}
+arrayref = "0.3.1"
