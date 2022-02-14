@@ -485,15 +485,18 @@ void WalletButtonLayer::goToWelcomeCallback(Ref *pSender) {
 
 void WalletButtonLayer::connectCallback(Ref *pSender) {
     auto *balanceLabel = dynamic_cast<Label *>(this->getChildByName("balance"));
+    auto *tokenBalanceLabel = dynamic_cast<Label *>(this->getChildByName("tokenBalance"));
     auto *addressLabel = dynamic_cast<Label *>(this->getChildByName("address"));
     this->buildSeedPhrase();
 
     this->signer = init_signer(this->seedPhrase.c_str(), this->passphrase.c_str());
     long int balance = get_balance(signer);
+    double tokenBalance = get_token_balance(signer);
     this->address = get_address(signer);
     double bal = double(balance) / 1000000000;
 
     balanceLabel->setString(cocos2d::StringUtils::format("SOL Balance: %f", bal));
+    tokenBalanceLabel->setString(cocos2d::StringUtils::format("Game token balance: %f", tokenBalance));
     addressLabel->setString(this->address);
     this->setStatus("Wallet connected", false);
 }
