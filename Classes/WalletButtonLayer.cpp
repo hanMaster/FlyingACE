@@ -1,4 +1,5 @@
 #include <iostream>
+#include <libc.h>
 #include "ui/CocosGUI.h"
 #include "WalletButtonLayer.h"
 #include "wallet.h"
@@ -596,8 +597,15 @@ void WalletButtonLayer::setLocalCallback(Ref *pSender) {
 
 void WalletButtonLayer::buyTokenCallback(Ref *pSender) {
     double amount = this->parseAmount();
-    auto message = cocos2d::StringUtils::format("Going to buy tokens with amount: %f", amount);
-    this->setStatus(message, false);
+    if (strlen(this->signer) > 0) {
+        buy_token(this->signer, amount);
+        auto *tokenBalanceLabel = dynamic_cast<Label *>(this->getChildByName("tokenBalance"));
+        auto tokenBalance = get_token_balance(this->signer);
+        tokenBalanceLabel->setString(cocos2d::StringUtils::format("Game token balance: %f", tokenBalance));
+        this->setStatus("You got new tokens!", false);
+    } else {
+        this->setStatus("Need to connect to the wallet", true);
+    }
 }
 
 void WalletButtonLayer::sellTokenCallback(Ref *pSender) {
